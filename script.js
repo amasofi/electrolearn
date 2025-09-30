@@ -506,3 +506,20 @@ if (!String.prototype.includes) {
 
 // Export global pour la compatibilité
 window.initElectroLearn = initializeApp;
+// === FONCTIONS ADMIN ===
+function checkAdminAuth() {
+    return localStorage.getItem('electrolearn_admin') === 'true';
+}
+
+function requireAdminAuth() {
+    if (!checkAdminAuth()) {
+        window.location.href = 'admin-login.html';
+        return false;
+    }
+    return true;
+}
+
+function adminLogin(credentials) {
+    // Simulation - en réel, vérifier avec le backend
+    if (credentials.email === 'admin@electrolearn.fr' && credentials.password === 'admin123') {
+        localStorage.setItem('electrolearn
