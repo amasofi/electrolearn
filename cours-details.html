@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Électronique Fondamentale - ElectroLearn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .course-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 150px 0 80px;
+            text-align: center;
+        }
+
+        .course-progress {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: var(--accent);
+            height: 100%;
+            width: 30%;
+            transition: width 0.3s ease;
+        }
+
+        .lessons-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .lesson-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lesson-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .lesson-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .lesson-completed .lesson-icon {
+            background: var(--success);
+        }
+
+        .lesson-locked .lesson-icon {
+            background: var(--gray);
+        }
+
+        .quiz-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 3rem;
+        }
+
+        .quiz-option {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+        }
+
+        .quiz-option.selected {
+            background: var(--primary);
+            color: white;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .resource-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-microchip"></i>
+                <span>ElectroLearn</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="cours-details.html" class="nav-link">Cours</a></li>
+                <li><a href="galerie-projets.html" class="nav-link">Projets</a></li>
+                <li><a href="forum.html" class="nav-link">Forum</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="connexion.html" class="nav-cta">Connexion</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Cours -->
+    <section class="course-hero">
+        <div class="container">
+            <h1>Électronique Fondamentale</h1>
+            <p>Maîtrisez les bases de l'électronique et construisez des circuits simples</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="startLesson()">
+                    <i class="fas fa-play"></i> Continuer le cours
+                </button>
+                <button class="btn-secondary">
+                    <i class="fas fa-download"></i> Télécharger les ressources
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="course-progress">
+                <h3>Votre progression</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">30% complété - 3/10 leçons</p>
+            </div>
+
+            <div class="lessons-grid">
+                <!-- Leçon 1 -->
+                <div class="lesson-card lesson-completed" onclick="openLesson(1)">
+                    <div class="lesson-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4>Introduction à l'électronique</h4>
+                        <p>Découvrez les concepts de base : courant, tension, résistance</p>
+                    </div>
+                    <div>
+                        <span class="duration">15 min</span>
+                    </div>
+                </div>
+
+                <!-- Leçon 2 -->
+                <div class="lesson-card lesson-completed" onclick="openLesson(2)">
+                    <div class="lesson-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4>La loi d'Ohm</h4>
+                        <p>Comprenez la relation fondamentale entre tension, courant et résistance</p>
+                    </div>
+                    <div>
+                        <span class="duration">20 min</span>
+                    </div>
+                </div>
+
+                <!-- Leçon 3 -->
+                <div class="lesson-card lesson-completed" onclick="openLesson(3)">
+                    <div class="lesson-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4>Les résistances</h4>
+                        <p>Apprenez à lire les codes couleurs et utiliser les résistances</p>
+                    </div>
+                    <div>
+                        <span class="duration">25 min</span>
+                    </div>
+                </div>
+
+                <!-- Leçon 4 -->
+                <div class="lesson-card" onclick="openLesson(4)">
+                    <div class="lesson-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4>Les condensateurs</h4>
+                        <p>Découvrez le stockage d'énergie électrique</p>
+                    </div>
+                    <div>
+                        <span class="duration">30 min</span>
+                    </div>
+                </div>
+
+                <!-- Leçon 5 -->
+                <div class="lesson-card lesson-locked">
+                    <div class="lesson-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4>Les bobines et inductances</h4>
+                        <p>Explorez les composants magnétiques</p>
+                    </div>
+                    <div>
+                        <span class="duration">25 min</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resources Section -->
+            <div style="margin-top: 4rem;">
+                <h2 class="section-title">Ressources du Cours</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>PDF du Cours</h4>
+                        <p>Support de cours complet en PDF</p>
+                        <button class="course-btn" style="margin-top: 1rem;">
+                            <i class="fas fa-download"></i> Télécharger
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h4>Vidéos Complémentaires</h4>
+                        <p>Collection de vidéos explicatives</p>
+                        <button class="course-btn" style="margin-top: 1rem;">
+                            <i class="fas fa-play"></i> Voir les vidéos
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h4>Exercices Pratiques</h4>
+                        <p>Exercices avec corrigés détaillés</p>
+                        <button class="course-btn" style="margin-top: 1rem;">
+                            <i class="fas fa-pencil-alt"></i> Commencer
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-sim-card"></i>
+                        </div>
+                        <h4>Simulateur</h4>
+                        <p>Pratiquez avec notre simulateur</p>
+                        <a href="simulateur.html" class="course-btn" style="margin-top: 1rem; display: inline-block;">
+                            <i class="fas fa-play"></i> Ouvrir
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section -->
+            <div class="quiz-section">
+                <h3>Quiz de la leçon 3 - Les Résistances</h3>
+                <p>Testez vos connaissances sur les résistances et leurs utilisations</p>
+                
+                <div class="quiz-question">
+                    <h4>Question 1: Quelle est la valeur d'une résistance avec les bandes marron, noir, rouge, or ?</h4>
+                    <div class="quiz-option" onclick="selectOption(this)">1 kΩ ±5%</div>
+                    <div class="quiz-option" onclick="selectOption(this)">100 Ω ±5%</div>
+                    <div class="quiz-option" onclick="selectOption(this)">10 kΩ ±5%</div>
+                    <div class="quiz-option" onclick="selectOption(this)">1 MΩ ±5%</div>
+                </div>
+
+                <div class="quiz-question" style="margin-top: 2rem;">
+                    <h4>Question 2: Quelle est l'unité de mesure de la résistance ?</h4>
+                    <div class="quiz-option" onclick="selectOption(this)">Volt (V)</div>
+                    <div class="quiz-option" onclick="selectOption(this)">Ampère (A)</div>
+                    <div class="quiz-option" onclick="selectOption(this)">Ohm (Ω)</div>
+                    <div class="quiz-option" onclick="selectOption(this)">Watt (W)</div>
+                </div>
+
+                <button class="btn-primary" style="margin-top: 2rem;" onclick="submitQuiz()">
+                    <i class="fas fa-paper-plane"></i> Soumettre les réponses
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ElectroLearn</h3>
+                    <p>Votre plateforme d'apprentissage de l'électronique pour tous les niveaux.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Cours</h3>
+                    <ul>
+                        <li><a href="cours-details.html">Électronique Fondamentale</a></li>
+                        <li><a href="cours-details.html">Composants Semi-conducteurs</a></li>
+                        <li><a href="cours-details.html">Arduino et Microcontrôleurs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Ressources</h3>
+                    <ul>
+                        <li><a href="simulateur.html">Simulateur</a></li>
+                        <li><a href="galerie-projets.html">Projets</a></li>
+                        <li><a href="forum.html">Forum</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="contact.html">Formulaire de contact</a></li>
+                        <li><i class="fas fa-envelope"></i> contact@electrolearn.fr</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 ElectroLearn. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Gestion de la progression
+        function updateProgress() {
+            const progress = 30; // 30% de progression
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            progressFill.style.width = progress + '%';
+            progressText.textContent = progress + '% complété - 3/10 leçons';
+        }
+
+        // Sélection des options de quiz
+        function selectOption(element) {
+            // Retirer la sélection de toutes les options de la même question
+            const question = element.parentElement;
+            question.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Sélectionner l'option cliquée
+            element.classList.add('selected');
+        }
+
+        // Soumission du quiz
+        function submitQuiz() {
+            const selectedOptions = document.querySelectorAll('.quiz-option.selected');
+            
+            if (selectedOptions.length < 2) {
+                alert('Veuillez répondre à toutes les questions avant de soumettre.');
+                return;
+            }
+            
+            // Simulation de correction
+            let score = 0;
+            selectedOptions.forEach(opt => {
+                if (opt.textContent.includes('1 kΩ') || opt.textContent.includes('Ohm')) {
+                    score++;
+                }
+            });
+            
+            if (score === 2) {
+                alert('🎉 Félicitations ! Vous avez obtenu 2/2 bonnes réponses !');
+            } else {
+                alert(`Vous avez obtenu ${score}/2 bonnes réponses. Continuez à réviser !`);
+            }
+        }
+
+        // Navigation des leçons
+        function openLesson(lessonNumber) {
+            if (lessonNumber <= 4) { // Les 4 premières leçons sont accessibles
+                alert(`Ouverture de la leçon ${lessonNumber}...`);
+                // Ici, vous redirigeriez vers la page de la leçon
+            } else {
+                alert('Cette leçon est verrouillée. Complétez les leçons précédentes pour la débloquer.');
+            }
+        }
+
+        function startLesson() {
+            openLesson(4); // Commencer à la prochaine leçon non complétée
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
+    </script>
+<li><a href="admin-login.html" class="nav-link" style="color: var(--accent);">
+    <i class="fas fa-cog"></i> Admin
+</a></li>
+</body>
+</html>

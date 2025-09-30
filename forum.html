@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Communautaire - ElectroLearn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .forum-hero {
+            background: linear-gradient(135deg, var(--secondary) 0%, #ff8e8e 100%);
+            color: white;
+            padding: 150px 0 80px;
+            text-align: center;
+        }
+
+        .forum-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+
+        .forum-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .recent-discussions {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .discussion {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.3s ease;
+        }
+
+        .discussion:hover {
+            background: var(--light);
+        }
+
+        .discussion:last-child {
+            border-bottom: none;
+        }
+
+        .discussion-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .discussion-content {
+            flex: 1;
+        }
+
+        .discussion-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .discussion-stats {
+            text-align: right;
+            color: var(--gray);
+        }
+
+        .new-topic-btn {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .new-topic-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-microchip"></i>
+                <span>ElectroLearn</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="cours-details.html" class="nav-link">Cours</a></li>
+                <li><a href="galerie-projets.html" class="nav-link">Projets</a></li>
+                <li><a href="forum.html" class="nav-link">Forum</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="connexion.html" class="nav-cta">Connexion</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Forum -->
+    <section class="forum-hero">
+        <div class="container">
+            <h1>Forum Communautaire</h1>
+            <p>Échangez, posez vos questions et partagez vos connaissances avec la communauté ElectroLearn</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <!-- Statistiques -->
+            <div class="forum-stats">
+                <div class="stat-card">
+                    <span class="stat-number">2,847</span>
+                    <span>Membres</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">15,632</span>
+                    <span>Discussions</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">42,189</span>
+                    <span>Réponses</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">127</span>
+                    <span>En ligne</span>
+                </div>
+            </div>
+
+            <!-- Bouton nouveau sujet -->
+            <button class="new-topic-btn">
+                <i class="fas fa-plus"></i> Nouvelle Discussion
+            </button>
+
+            <!-- Catégories -->
+            <h2 style="margin-bottom: 2rem;">Catégories</h2>
+            <div class="forum-categories">
+                <div class="category-card" onclick="location.href='#'">
+                    <div class="category-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>Aide Débutants</h3>
+                    <p>Posez vos questions basiques et obtenez de l'aide pour vos premiers pas en électronique</p>
+                    <div class="category-stats">
+                        <span>1,245 discussions</span>
+                        <span>324 aujourd'hui</span>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="location.href='#'">
+                    <div class="category-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Arduino & Microcontrôleurs</h3>
+                    <p>Discussions sur la programmation et les projets Arduino, ESP32, Raspberry Pi, etc.</p>
+                    <div class="category-stats">
+                        <span>3,842 discussions</span>
+                        <span>156 aujourd'hui</span>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="location.href='#'">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Projets & Réalisations</h3>
+                    <p>Partagez vos projets terminés et obtenez des retours de la communauté</p>
+                    <div class="category-stats">
+                        <span>2,156 discussions</span>
+                        <span>89 aujourd'hui</span>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="location.href='#'">
+                    <div class="category-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Matériel & Achat</h3>
+                    <p>Conseils d'achat, comparatifs et retours d'expérience sur le matériel</p>
+                    <div class="category-stats">
+                        <span>987 discussions</span>
+                        <span>45 aujourd'hui</span>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="location.href='#'">
+                    <div class="category-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Tutoriels & Guides</h3>
+                    <p>Partagez vos tutoriels et guides pour aider les autres membres</p>
+                    <div class="category-stats">
+                        <span>1,523 discussions</span>
+                        <span>67 aujourd'hui</span>
+                    </div>
+                </div>
+
+                <div class="category-card" onclick="location.href='#'">
+                    <div class="category-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Recherche & Développement</h3>
+                    <p>Discussions avancées sur des sujets techniques et projets complexes</p>
+                    <div class="category-stats">
+                        <span>756 discussions</span>
+                        <span>23 aujourd'hui</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discussions récentes -->
+            <div class="recent-discussions">
+                <h2 style="margin-bottom: 2rem;">Discussions Récentes</h2>
+                
+                <div class="discussion">
+                    <div class="discussion-avatar">JD</div>
+                    <div class="discussion-content">
+                        <h4>Problème avec mon circuit LED RGB</h4>
+                        <p>Bonjour, j'ai un problème avec mon circuit LED RGB, les couleurs ne s'affichent pas correctement...</p>
+                        <div class="discussion-meta">
+                            <span>Par JeanD</span>
+                            <span>Dans: Arduino & Microcontrôleurs</span>
+                            <span>Il y a 2 heures</span>
+                        </div>
+                    </div>
+                    <div class="discussion-stats">
+                        <div><i class="far fa-comment"></i> 8</div>
+                        <div><i class="far fa-eye"></i> 42</div>
+                    </div>
+                </div>
+
+                <div class="discussion">
+                    <div class="discussion-avatar">MP</div>
+                    <div class="discussion-content">
+                        <h4>Meilleur oscilloscope pour débutant ?</h4>
+                        <p>Je cherche à acheter mon premier oscilloscope, avez-vous des recommandations pour un budget de 300€ ?</p>
+                        <div class="discussion-meta">
+                            <span>Par MarieP</span>
+                            <span>Dans: Matériel & Achat</span>
+                            <span>Il y a 5 heures</span>
+                        </div>
+                    </div>
+                    <div class="discussion-stats">
+                        <div><i class="far fa-comment"></i> 15</div>
+                        <div><i class="far fa-eye"></i> 87</div>
+                    </div>
+                </div>
+
+                <div class="discussion">
+                    <div class="discussion-avatar">TD</div>
+                    <div class="discussion-content">
+                        <h4>Tutoriel : Créer un variateur de lumière avec TRIAC</h4>
+                        <p>J'ai créé un tutoriel complet pour réaliser un variateur de lumière domestique avec un TRIAC...</p>
+                        <div class="discussion-meta">
+                            <span>Par ThomasD</span>
+                            <span>Dans: Tutoriels & Guides</span>
+                            <span>Il y a 1 jour</span>
+                        </div>
+                    </div>
+                    <div class="discussion-stats">
+                        <div><i class="far fa-comment"></i> 23</div>
+                        <div><i class="far fa-eye"></i> 156</div>
+                    </div>
+                </div>
+
+                <div class="discussion">
+                    <div class="discussion-avatar">SL</div>
+                    <div class="discussion-content">
+                        <h4>[Projet Terminé] Station météo solaire autonome</h4>
+                        <p>Je vous présente ma station météo alimentée par panneau solaire avec transmission de données LoRa...</p>
+                        <div class="discussion-meta">
+                            <span>Par SarahL</span>
+                            <span>Dans: Projets & Réalisations</span>
+                            <span>Il y a 2 jours</span>
+                        </div>
+                    </div>
+                    <div class="discussion-stats">
+                        <div><i class="far fa-comment"></i> 34</div>
+                        <div><i class="far fa-eye"></i> 289</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ElectroLearn</h3>
+                    <p>Votre plateforme d'apprentissage de l'électronique pour tous les niveaux.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Cours</h3>
+                    <ul>
+                        <li><a href="cours-details.html">Électronique Fondamentale</a></li>
+                        <li><a href="#">Composants Semi-conducteurs</a></li>
+                        <li><a href="#">Arduino et Microcontrôleurs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Ressources</h3>
+                    <ul>
+                        <li><a href="simulateur.html">Simulateur</a></li>
+                        <li><a href="galerie-projets.html">Projets</a></li>
+                        <li><a href="forum.html">Forum</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="contact.html">Formulaire de contact</a></li>
+                        <li><i class="fas fa-envelope"></i> contact@electrolearn.fr</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 ElectroLearn. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+<li><a href="admin-login.html" class="nav-link" style="color: var(--accent);">
+    <i class="fas fa-cog"></i> Admin
+</a></li>
+</body>
+</html>

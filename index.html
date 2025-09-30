@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroLearn - Initiation à l'Électronique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            padding: 100px 2rem 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .highlight {
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .hero-visual {
+            flex: 1;
+            position: relative;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circuit-board {
+            width: 80%;
+            height: 80%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .circuit-line {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .component {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .advantage-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .advantage-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .cta {
+            background: linear-gradient(135deg, var(--secondary) 0%, #ff8e8e 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-btn {
+            background: white;
+            color: var(--secondary);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 120px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-visual {
+                margin-top: 2rem;
+                height: 300px;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-microchip"></i>
+                <span>ElectroLearn</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="cours-details.html" class="nav-link">Cours</a></li>
+                <li><a href="galerie-projets.html" class="nav-link">Projets</a></li>
+                <li><a href="forum.html" class="nav-link">Forum</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="connexion.html" class="nav-cta">Connexion</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Apprenez l'<span class="highlight">Électronique</span> Facilement</h1>
+            <p class="hero-subtitle">Des bases aux projets avancés, découvrez le monde passionnant de l'électronique grâce à nos cours interactifs et projets pratiques.</p>
+            <div class="hero-buttons">
+                <a href="connexion.html" class="btn-primary">
+                    <i class="fas fa-play-circle"></i> Commencer maintenant
+                </a>
+                <a href="cours-details.html" class="btn-secondary">
+                    <i class="fas fa-book-open"></i> Voir les cours
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" data-target="5000">0</span>
+                    <span class="stat-label">Étudiants actifs</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-target="120">0</span>
+                    <span class="stat-label">Leçons disponibles</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-target="50">0</span>
+                    <span class="stat-label">Projets pratiques</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="circuit-board">
+                <div class="circuit-line" style="top: 20%; left: 10%; width: 60%; height: 3px;"></div>
+                <div class="circuit-line" style="top: 40%; left: 30%; width: 50%; height: 3px; transform: rotate(45deg);"></div>
+                <div class="circuit-line" style="top: 70%; left: 20%; width: 70%; height: 3px;"></div>
+                
+                <div class="component" style="top: 15%; left: 15%;">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="component" style="top: 35%; left: 60%;">
+                    <i class="fas fa-resistance"></i>
+                </div>
+                <div class="component" style="top: 65%; left: 40%;">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <div class="component" style="top: 50%; left: 80%;">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cours Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Nos Parcours d'Apprentissage</h2>
+            <p class="section-subtitle">Choisissez le parcours qui correspond à votre niveau et vos objectifs</p>
+            
+            <div class="courses-grid">
+                <!-- Cours 1 -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="course-title">Électronique Fondamentale</h3>
+                    <p class="course-desc">Comprenez les bases : courant, tension, résistance, lois fondamentales et composants essentiels.</p>
+                    <ul style="margin-bottom: 1.5rem; color: var(--gray);">
+                        <li>• Lois d'Ohm et de Kirchhoff</li>
+                        <li>• Composants passifs</li>
+                        <li>• Mesures électriques</li>
+                        <li>• Circuits simples</li>
+                    </ul>
+                    <a href="cours-details.html" class="course-btn">Commencer ce cours</a>
+                </div>
+
+                <!-- Cours 2 -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3 class="course-title">Composants Semi-conducteurs</h3>
+                    <p class="course-desc">Découvrez les diodes, transistors et circuits intégrés qui forment la base de l'électronique moderne.</p>
+                    <ul style="margin-bottom: 1.5rem; color: var(--gray);">
+                        <li>• Diodes et transistors</li>
+                        <li>• Amplificateurs opérationnels</li>
+                        <li>• Circuits logiques</li>
+                        <li>• Applications pratiques</li>
+                    </ul>
+                    <a href="cours-details.html" class="course-btn">Commencer ce cours</a>
+                </div>
+
+                <!-- Cours 3 -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="course-title">Arduino et Microcontrôleurs</h3>
+                    <p class="course-desc">Programmez des microcontrôleurs pour créer des projets interactifs et automatisés.</p>
+                    <ul style="margin-bottom: 1.5rem; color: var(--gray);">
+                        <li>• Programmation Arduino</li>
+                        <li>• Capteurs et actionneurs</li>
+                        <li>• Projets interactifs</li>
+                        <li>• IoT et connectivité</li>
+                    </ul>
+                    <a href="cours-details.html" class="course-btn">Commencer ce cours</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Avantages Section -->
+    <section class="section advantages">
+        <div class="container">
+            <h2 class="section-title">Pourquoi Choisir ElectroLearn ?</h2>
+            <p class="section-subtitle">Notre approche unique rend l'apprentissage de l'électronique accessible à tous</p>
+            
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Pédagogie Progressive</h3>
+                    <p>Des concepts simples aux projets complexes, chaque leçon construit sur la précédente.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <h3>Apprentissage Pratique</h3>
+                    <p>Expérimentez avec des simulateurs en ligne et des projets réels avec des composants accessibles.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Communauté Active</h3>
+                    <p>Échangez avec d'autres passionnés, posez vos questions et partagez vos réalisations.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Accessible Partout</h3>
+                    <p>Apprenez à votre rythme, sur tous vos appareils, avec ou sans matériel électronique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">Prêt à Démarrer Votre Aventure en Électronique ?</h2>
+            <p class="cta-subtitle">Rejoignez des milliers d'apprenants et découvrez comment créer vos propres circuits électroniques</p>
+            <a href="connexion.html" class="cta-btn">
+                <i class="fas fa-rocket"></i> S'inscrire Gratuitement
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ElectroLearn</h3>
+                    <p>Votre plateforme d'apprentissage de l'électronique pour tous les niveaux. Des bases fondamentales aux projets avancés.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Cours</h3>
+                    <ul>
+                        <li><a href="cours-details.html">Électronique Fondamentale</a></li>
+                        <li><a href="cours-details.html">Composants Semi-conducteurs</a></li>
+                        <li><a href="cours-details.html">Arduino et Microcontrôleurs</a></li>
+                        <li><a href="cours-details.html">Circuits Numériques</a></li>
+                        <li><a href="cours-details.html">Projets Avancés</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Ressources</h3>
+                    <ul>
+                        <li><a href="simulateur.html">Simulateurs en Ligne</a></li>
+                        <li><a href="galerie-projets.html">Bibliothèque de Projets</a></li>
+                        <li><a href="forum.html">Forum d'Entraide</a></li>
+                        <li><a href="#">Guides d'Achat</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Formulaire de contact</a></li>
+                        <li><i class="fas fa-phone"></i> +33 1 23 45 67 89</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Paris, France</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 ElectroLearn. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+<li><a href="admin-login.html" class="nav-link" style="color: var(--accent);">
+    <i class="fas fa-cog"></i> Admin
+</a></li>
+</body>
+</html>
